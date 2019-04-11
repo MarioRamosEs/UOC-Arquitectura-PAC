@@ -235,9 +235,23 @@ getchP1:
 getSecretPlayP1: ;prefix sp_
    push rbp
    mov  rbp, rsp
-	
    mov rax, 0 ;rax will be i
-   
+
+   ;Primera Parte - Comprobación posición
+   cmp DWORD[state], 0
+   je sp_state0
+   sp_state3:
+   mov DWORD[rowScreen], 3
+   jmp sp_endIfState
+   sp_state0:
+   mov eax, DimVector
+   sub eax, DWORD [tries]
+   sal eax, 1	; *2
+   add eax, 9	
+   mov DWORD[rowScreen], eax
+   sp_endIfState:
+   mov DWORD [colScreen], 8
+   ;Fin Primera Parte
 
    mov rsp, rbp
    pop rbp

@@ -295,12 +295,15 @@ void printBoardP1_C(){
 void getSecretPlayP1_C(){
    int i;
 
+   //Primera Parte - Comprobación posición
    if (state==0) {
 	  rowScreen = 3;   
    } else {
       rowScreen = 9+(DimVector-tries)*2;
    }
    colScreen = 8;
+    //Fin Primera parte
+
    for (i=0;i<DimVector;i++) {
 	 if (state==0) {
 		vSecret[i]=' ';
@@ -308,6 +311,7 @@ void getSecretPlayP1_C(){
         vPlay[i]=' ';
      }
    }
+   
    
    i=0;
    do {
