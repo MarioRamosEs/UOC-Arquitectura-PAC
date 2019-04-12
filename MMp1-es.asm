@@ -249,7 +249,7 @@ getSecretPlayP1: ;prefix sp_
    add eax, 9	
    mov DWORD[rowScreen], eax
    sp_endIfState:
-   mov DWORD [colScreen], 8
+   mov DWORD[colScreen], 8
    ;Fin Primera Parte
 
    ;Segunda parte - Array con espacios
@@ -271,6 +271,37 @@ getSecretPlayP1: ;prefix sp_
    sp_endLoop:
    ;Fin Segunda parte
 
+   mov rax, 0 ;rax will be i
+   sp_startDoWhile:
+   call gotoxyP1
+   call getchP1	
+   
+   ;check j
+   mov al, BYTE [charac]
+   cmp al, 'j'
+   jne sp_dontGoLeft
+   cmp rax, 0
+   jle sp_dontGoLeft
+   sub rax, 1
+   sub DWORD[colScreen], 2 ;TODO revisar
+   sp_dontGoLeft:
+
+   ;check k
+   cmp al, 'k'
+   jne sp_dontGoRight
+   cmp rax, DimVector
+   je sp_dontGoRight
+   add rax, 1
+   add DWORD[colScreen], 2 ;TODO revisar
+   sp_dontGoRight:
+
+   ;check charac>='0' && charac<='9'
+   cmp al, '0'
+   jb sp_checkDoWhile
+   cmp al, '9'
+   ja sp_checkDoWhile
+
+   sp_checkDoWhile:
 
    mov rsp, rbp
    pop rbp
