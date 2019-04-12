@@ -661,8 +661,8 @@ void main(void)
       tries = 6;
       printBoardP1_C();
       //=======================================================
-      //getSecretPlayP1();
-      getSecretPlayP1_C();
+      getSecretPlayP1();
+      //getSecretPlayP1_C();
       //=======================================================
       rowScreen = 23;
       colScreen = 13;
@@ -704,8 +704,8 @@ void main(void)
       tries = 6;
       printBoardP1_C();
       //=======================================================
-      //checkSecretP1();
-      checkSecretP1_C();
+      checkSecretP1();
+      //checkSecretP1_C();
       //=======================================================
       printSecretP1_C();
       printMessageP1_C();

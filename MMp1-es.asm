@@ -240,14 +240,15 @@ getSecretPlayP1: ;prefix sp_
    cmp DWORD[state], 0
    je sp_state0
    sp_state3:
-   mov DWORD[rowScreen], 3
-   jmp sp_endIfState
-   sp_state0:
    mov eax, DimVector
-   sub eax, DWORD [tries]
+   mov ebx, DWORD [tries]
+   sub eax, ebx
    sal eax, 1	; *2
    add eax, 9	
    mov DWORD[rowScreen], eax
+   jmp sp_endIfState
+   sp_state0:
+   mov DWORD[rowScreen], 3
    sp_endIfState:
    mov DWORD[colScreen], 8
    ;Fin Primera Parte
@@ -259,13 +260,13 @@ getSecretPlayP1: ;prefix sp_
    jge sp_endLoop
    sp_true:
       cmp DWORD[state], 0
-      cmp je sp_state0
+      je sp_state0_3
       sp_stateNot0:
       mov BYTE [vPlay+rax], ' '
       jmp sp_endIfState
-      sp_state0:
+      sp_state0_3:
       mov BYTE [vSecret+rax], ' '	
-      sp_endIfstate:
+      sp_endIfstate_3:
    add rax, 1
    jmp sp_checkLoop
    sp_endLoop:
@@ -303,14 +304,14 @@ getSecretPlayP1: ;prefix sp_
 
    ;check state_2
    cmp DWORD[state], 0
-   cmp je sp_state0_2
+   je sp_state0_2
    sp_stateNot0_2:
    mov BYTE[vPlay+rax], al ;Asignamos la tecla pulsada en la array
    jmp sp_endIfState_2
    sp_state0_2:
    mov BYTE[vSecret+rax], al ;Asignamos la tecla pulsada en la array
    mov BYTE[charac], '*'
-   sp_endIfstate_2:
+   sp_endIfState_2:
    call printchP1
 
    sp_checkDoWhile:
