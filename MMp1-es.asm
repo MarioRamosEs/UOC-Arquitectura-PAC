@@ -272,30 +272,30 @@ getSecretPlayP1: ;prefix sp_
    sp_endLoop:
    ;Fin Segunda parte
 
-   mov rax, 0 ;rax will be i
+   mov ebx, 0 ;ebx will be i
    sp_startDoWhile:
-   push rax
    call gotoxyP1
    call getchP1	
-   pop rax
    
    ;check j
    mov al, BYTE [charac]
    cmp al, 'j'
    jne sp_dontGoLeft
-   cmp rax, 0
+   cmp ebx, 0
    jle sp_dontGoLeft
-   sub rax, 1
-   sub DWORD[colScreen], 2 ;TODO revisar
+   sub ebx, 1
+   sub DWORD[colScreen], 2 
    sp_dontGoLeft:
 
    ;check k
    cmp al, 'k'
    jne sp_dontGoRight
-   cmp rax, DimVector
+   mov edx, DimVector
+   sub edx, 1
+   cmp ebx, edx ;edx = DimVector-1
    je sp_dontGoRight
-   add rax, 1
-   add DWORD[colScreen], 2 ;TODO revisar
+   add ebx, 1
+   add DWORD[colScreen], 2 
    sp_dontGoRight:
 
    ;check charac>='0' && charac<='9'
@@ -308,10 +308,10 @@ getSecretPlayP1: ;prefix sp_
    cmp DWORD[state], 0
    je sp_state0_2
    sp_stateNot0_2:
-   mov BYTE[vPlay+rax], al ;Asignamos la tecla pulsada en la array
+   mov BYTE[vPlay+ebx], al ;Asignamos la tecla pulsada en la array
    jmp sp_endIfState_2
    sp_state0_2:
-   mov BYTE[vSecret+rax], al ;Asignamos la tecla pulsada en la array
+   mov BYTE[vSecret+ebx], al ;Asignamos la tecla pulsada en la array
    mov BYTE[charac], '*'
    sp_endIfState_2:
    call printchP1
