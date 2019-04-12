@@ -235,7 +235,6 @@ getchP1:
 getSecretPlayP1: ;prefix sp_
    push rbp
    mov  rbp, rsp
-   mov rax, 0 ;rax will be i
 
    ;Primera Parte - Comprobación posición
    cmp DWORD[state], 0
@@ -252,6 +251,26 @@ getSecretPlayP1: ;prefix sp_
    sp_endIfState:
    mov DWORD [colScreen], 8
    ;Fin Primera Parte
+
+   ;Segunda parte - Array con espacios
+   mov rax, 0 ;rax will be i
+   sp_checkLoop:
+   cmp rax, DimVector
+   jge sp_endLoop
+   sp_true:
+      cmp DWORD[state], 0
+      cmp je sp_state0
+      sp_stateNot0:
+      mov BYTE [vPlay+rax], ' '
+      jmp sp_endIfState
+      sp_state0:
+      mov BYTE [vSecret+rax], ' '	
+      sp_endIfstate:
+   add rax, 1
+   jmp sp_checkLoop
+   sp_endLoop:
+   ;Fin Segunda parte
+
 
    mov rsp, rbp
    pop rbp
