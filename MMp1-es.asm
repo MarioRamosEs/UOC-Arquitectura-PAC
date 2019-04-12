@@ -353,33 +353,32 @@ checkSecretP1: ;prefix cs_
    mov  rbp, rsp
    ;push r8b
    
-   mov rax, 0 ;rax will be [i]
+   mov ebx, 0 ;ebx will be [i]
    mov rcx, 0 ;rcx will be secretError
 
    cs_checkLoop:
 	  ;mov edx, BYTE[DimVector]
-      cmp rax, DimVector
+      cmp ebx, DimVector
       jb cs_true
       jmp cs_endLoop
    cs_true:
-      mov r8b, BYTE[vSecret+rax]
-      inc rax ;increment i
-      cmp r8b, 48
+      mov r8b, BYTE[vSecret+ebx]
+      inc ebx ;increment i
+      cmp r8b, ' '
       jne cs_checkLoop
       mov rcx, 1 ;secretError = 1
       jmp cs_checkLoop
    cs_endLoop:
    
-   cmp rcx, 9
-   je cs_set0
+   cmp rcx, 1
+   jne cs_set1
    jmp cs_set3
-   cs_set0:
-       mov  DWORD[state], 0
+   cs_set1:
+       mov DWORD[state], 1
        jmp cs_endIf
    cs_set3:
-       mov  DWORD[state], 3
+       mov DWORD[state], 3
        jmp cs_endIf
-    
    cs_endIf:
 
    ;pop r8b
