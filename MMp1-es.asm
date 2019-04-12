@@ -301,7 +301,32 @@ getSecretPlayP1: ;prefix sp_
    cmp al, '9'
    ja sp_checkDoWhile
 
+   ;check state_2
+   cmp DWORD[state], 0
+   cmp je sp_state0_2
+   sp_stateNot0_2:
+   mov BYTE[vPlay+rax], al ;Asignamos la tecla pulsada en la array
+   jmp sp_endIfState_2
+   sp_state0_2:
+   mov BYTE[vSecret+rax], al ;Asignamos la tecla pulsada en la array
+   mov BYTE[charac], '*'
+   sp_endIfstate_2:
+   call printchP1
+
    sp_checkDoWhile:
+   cmp al, 10 ;Enter
+   je sp_endDoWhile
+   cmp al, 27 ;Esc
+   je sp_endDoWhile
+   jmp sp_startDoWhile
+
+   sp_endDoWhile:
+
+   cmp al, 27 ;Esc
+   jne sp_endFunc		
+   mov DWORD[state], 7
+
+   sp_endFunc:
 
    mov rsp, rbp
    pop rbp
