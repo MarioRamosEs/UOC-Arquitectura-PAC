@@ -263,7 +263,7 @@ getSecretPlayP1: ;prefix sp_
       je sp_state0_3
       sp_stateNot0:
       mov BYTE [vPlay+rax], ' '
-      jmp sp_endIfState
+      jmp sp_endIfstate_3
       sp_state0_3:
       mov BYTE [vSecret+rax], ' '	
       sp_endIfstate_3:
@@ -274,8 +274,10 @@ getSecretPlayP1: ;prefix sp_
 
    mov rax, 0 ;rax will be i
    sp_startDoWhile:
+   push rax
    call gotoxyP1
    call getchP1	
+   pop rax
    
    ;check j
    mov al, BYTE [charac]
